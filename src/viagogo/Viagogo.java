@@ -12,7 +12,7 @@ public class Viagogo {
     static List<Event> listOfEvents;
     
     final static int gridBoundaryPositive = 10;
-    final static int gridBoundaryNegative = -10 ;
+    final static int gridBoundaryNegative = -10    ;;
     final static int terminationNumber = 11;
     final static int mappingUserInputToGrid = 10;
     static Integer xCo = null;
