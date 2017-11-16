@@ -10,62 +10,59 @@ public class Viagogo {
     static Event[][] eventGrid;
 
     static List<Event> listOfEvents;
-    
+
     final static int gridBoundaryPositive = 10;
-    final static int gridBoundaryNegative = -10    ;;
+    final static int gridBoundaryNegative = -10;
     final static int terminationNumber = 11;
     final static int mappingUserInputToGrid = 10;
+    final static int outputLimit = 4;
     static Integer xCo = null;
     static Integer yCo = null;
     static boolean terminationFlag;
-    
+
     public static void main(String[] args) {
         eventGrid = new Event[20][20];
         listOfEvents = new ArrayList<>();
-        populateGrid();
         terminationFlag = false;
+        xCo = null;
+        yCo = null;
         Scanner in = new Scanner(System.in);
-        xCo = null;
-        yCo = null;
 
+        populateGrid();
         System.out.println("Follow the instructions to find the closest event based on your input or type 11 to exit application.");
-        
-        do{       
+
+        do {
             System.out.println("Type in X coordinate ranging from -10 to 10. Or type in 11 to exit application.");
-            
-        while (xCo == null) {
-            getUserXInput(in);
-        }
-        System.out.println("Type in Y coordinate ranging from -10 to 10. Or type in 11 to exit application");
-        while (yCo == null) {
-            getUserYInput(in);
-        }
-        
-        calculateManhattanDistance(xCo + mappingUserInputToGrid, yCo + mappingUserInputToGrid);
-        outputDistance(xCo, yCo);
-        
-        xCo = null;
-        yCo = null;
-        }while(!terminationFlag);
+
+            while (xCo == null) {
+                getUserXInput(in);
+            }
+            System.out.println("Type in Y coordinate ranging from -10 to 10. Or type in 11 to exit application");
+            while (yCo == null) {
+                getUserYInput(in);
+            }
+            calculateManhattanDistance(xCo + mappingUserInputToGrid, yCo + mappingUserInputToGrid);
+            outputDistance(xCo, yCo);
+            xCo = null;
+            yCo = null;
+        } while (!terminationFlag);
     }
-    
+
     //Gets the X coordinate from the user
-    public static void getUserXInput(Scanner in){
-                 try {
-                
-                xCo = Integer.parseInt(in.next());
-                if(xCo < gridBoundaryNegative || xCo > terminationNumber){
+    public static void getUserXInput(Scanner in) {
+        try {
+            xCo = Integer.parseInt(in.next());
+            if (xCo < gridBoundaryNegative || xCo > terminationNumber) {
                 xCo = null;
                 System.out.println("Bad Input. X coordinate can only be in the range of -10 to 10");
-                }
-                if(xCo == terminationNumber){
-                    terminationFlag = true;
-                        System.exit(0);
-                }
-            } catch (Exception e) {
-                System.out.println("Bad Input. Type a number ranging from -10 to 10");
             }
-
+            if (xCo == terminationNumber) {
+                terminationFlag = true;
+                System.exit(0);
+            }
+        } catch (Exception e) {
+            System.out.println("Bad Input. Type a number ranging from -10 to 10");
+        }
     }
 
     //Outputs the 5 closest events to the console as per the instructions.
@@ -75,7 +72,7 @@ public class Viagogo {
         System.out.println("Closest events to " + x + "," + y);
         for (int i = 0; i < listOfEvents.size(); i++) {
             System.out.println(listOfEvents.get(i).toString());
-            if (i == 4) {
+            if (i == outputLimit) {
                 break;
             }
         }
@@ -117,29 +114,25 @@ public class Viagogo {
         listOfEvents.stream().forEach((Event posOfEvent) -> {
             int xPositionOfEvent = posOfEvent.getX();
             int yPositionOfEvent = posOfEvent.getY();
-
             int distance = Math.abs(x - xPositionOfEvent) + Math.abs(y - yPositionOfEvent);
             eventGrid[xPositionOfEvent][yPositionOfEvent].setDistance(distance);
-
         });
-
     }
 
     //Gets the users Y coodinate input.
     private static void getUserYInput(Scanner in) {
-       try {
-                
-                yCo = Integer.parseInt(in.next());
-                if(yCo < gridBoundaryNegative || yCo > terminationNumber){
+        try {
+            yCo = Integer.parseInt(in.next());
+            if (yCo < gridBoundaryNegative || yCo > terminationNumber) {
                 yCo = null;
                 System.out.println("Bad Input. Y coordinate can only be in the range of -10 to 10");
-                }
-                if(yCo == terminationNumber){
-                    terminationFlag = true;
-                        System.exit(0);
-                }
-            } catch (Exception e) {
-                System.out.println("Bad Input. Type a number ranging from -10 to 10");
-            }}
-
+            }
+            if (yCo == terminationNumber) {
+                terminationFlag = true;
+                System.exit(0);
+            }
+        } catch (Exception e) {
+            System.out.println("Bad Input. Type a number ranging from -10 to 10");
+        }
+    }
 }
